@@ -1,4 +1,5 @@
 using RPG.Core.UI.Dragging;
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -15,9 +16,13 @@ public class DropTarget : MonoBehaviour, IDragDestination<SO_ZbrojkoItem>
         //item.SpawnPickup(spawnLocation)
         //spawnLocation bi trebala biti unaprijed odredena, tipa neki grid ili nesto
         //pa se spawnaju na random celiji u gridu
-        //napravi class koji prati ukupan zbroj u posudi
+        //MathTeacher class prati ukupan zbroj u posudi - trebat ce ovdje i Remove funkcija
 
-        //provjeri ItemType, ne mogu se brojevi spawnati u posudi za Zbrojkice i obrnuto
+        if (_itemType != item.ItemType)
+        {
+            Debug.Log("Item types don't match.");
+            return;
+        } 
 
         Debug.Log("Spawn item");
     }
