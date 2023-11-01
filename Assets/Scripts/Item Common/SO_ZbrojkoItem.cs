@@ -15,6 +15,6 @@ public class SO_ZbrojkoItem : ScriptableObject
     public void SpawnPickup()
     {
         //potencijalno vrati nesto, GameObject ili idk
-        //prefab bi trebao imati referencu na SO 
+        //prefab bi trebao imati referencu na SO zbog ItemType
     }
 }

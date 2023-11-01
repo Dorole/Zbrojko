@@ -10,6 +10,8 @@ public class DropTarget : MonoBehaviour, IDragDestination<SO_ZbrojkoItem>
 {
     [SerializeField] private int _maxAcceptable = 10;
     [SerializeField] private ItemType _itemType = ItemType.Number;
+    [SerializeField] private Transform _parentObject = default;
+    [SerializeField] private Vector3 _instantiateAtPosition; //TEST
 
     public void AddItems(SO_ZbrojkoItem item, int number)
     {
@@ -25,6 +27,10 @@ public class DropTarget : MonoBehaviour, IDragDestination<SO_ZbrojkoItem>
         } 
 
         Debug.Log("Spawn item");
+        //refactor to pool
+        GameObject o = Instantiate(item.ItemPrefab, _instantiateAtPosition, Quaternion.identity);
+        o.transform.parent = _parentObject;
+
     }
 
     public int MaxAcceptable(SO_ZbrojkoItem item)

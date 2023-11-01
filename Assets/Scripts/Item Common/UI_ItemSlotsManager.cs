@@ -2,19 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NumbersUI : MonoBehaviour
+public class UI_ItemSlotsManager : MonoBehaviour
 {
-    [SerializeField] private NumbersManager _numbersManager = default;
+    [SerializeField] private ItemManager _itemManager = default;
 
-    private void Awake() 
+    private void Start() 
     {
         //should implement interface later on
-        UI_NumberSlot[] slots = GetComponentsInChildren<UI_NumberSlot>();
+        UI_ItemSlot[] slots = GetComponentsInChildren<UI_ItemSlot>();
         //NumbersManager numbersManager = NumbersManager.GetNumbersManager();
 
         for (int i = 0; i < slots.Length; i++)
         {
-            slots[i].Setup(_numbersManager, i);
+            slots[i].Setup(_itemManager, i);
         }
     }
 }
