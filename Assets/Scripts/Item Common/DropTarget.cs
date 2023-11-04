@@ -9,7 +9,7 @@ using UnityEngine;
 public class DropTarget : MonoBehaviour, IDragDestination<SO_ZbrojkoItem>
 {
     [SerializeField] private int _maxAcceptable = 10;
-    [SerializeField] private ItemType _itemType = ItemType.Number;
+    [SerializeField] private ItemType _itemType = ItemType.Number; //rename to _acceptableItemType
     [SerializeField] private Transform _parentObject = default;
     [SerializeField] private Vector3 _instantiateAtPosition; //TEST
 
@@ -30,7 +30,7 @@ public class DropTarget : MonoBehaviour, IDragDestination<SO_ZbrojkoItem>
         //refactor to pool
         GameObject o = Instantiate(item.ItemPrefab, _instantiateAtPosition, Quaternion.identity);
         o.transform.parent = _parentObject;
-
+        o.GetComponent<ItemObject>().Setup(item); 
     }
 
     public int MaxAcceptable(SO_ZbrojkoItem item)
