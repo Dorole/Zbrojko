@@ -7,12 +7,16 @@ public class GridSystem //REFACTOR SO IT TAKES INTO ACCOUNT CONTAINER POSITION
     private int _width = default;
     private int _height = default;
     private float _cellSize = default;
+    private Transform _parentTransform = default;
     private GridObject[,] _gridObjectArray;
-    public GridSystem(int width, int height, float cellSize)
+    private List<Transform> _gridObjectTransforms = new List<Transform>(); //scriptable objects?
+
+    public GridSystem(int width, int height, float cellSize, Transform parentTransform)
     {
         _width = width;
         _height = height;
         _cellSize = cellSize;
+        _parentTransform = parentTransform;
 
         _gridObjectArray = new GridObject[width, height];
 
@@ -49,9 +53,13 @@ public class GridSystem //REFACTOR SO IT TAKES INTO ACCOUNT CONTAINER POSITION
             {
                 GridPosition gridPosition = new GridPosition(x, z);
 
-                Transform debugTransform = GameObject.Instantiate(debugPrefab, GetWorldPosition(gridPosition), Quaternion.identity);
-                GridDebugObject gridDebugObject = debugTransform.GetComponent<GridDebugObject>();
+                Transform debugTransform = GameObject.Instantiate(debugPrefab);
+                debugTransform.SetParent(_parentTransform);
+                debugTransform.localPosition = GetWorldPosition(gridPosition);
+                
+                _gridObjectTransforms.Add(debugTransform);
 
+                GridDebugObject gridDebugObject = debugTransform.GetComponent<GridDebugObject>();
                 gridDebugObject.SetGridObject(GetGridObject(gridPosition));
             }
         }
@@ -60,5 +68,19 @@ public class GridSystem //REFACTOR SO IT TAKES INTO ACCOUNT CONTAINER POSITION
     public GridObject GetGridObject(GridPosition gridPosition)
     {
         return _gridObjectArray[gridPosition.x, gridPosition.z];
+    }
+
+    public Transform GetGridObjectTransform(Vector3 worldPosition)
+    {
+        for (int i = 0; i < _gridObjectTransforms.Count; i++)
+        {
+            if (_gridObjectTransforms[i].localPosition.x == GetGridPosition(worldPosition).x 
+                && _gridObjectTransforms[i].localPosition.z == GetGridPosition(worldPosition).z)
+            {
+                return _gridObjectTransforms[i];
+            }    
+        }
+
+        return null;
     }
 }

@@ -11,12 +11,16 @@ public class Testing : MonoBehaviour
 
     private void Start()
     {
-        Transform _itemTransform = Instantiate(_itemPrefab, _positionToInstantiate, Quaternion.identity);
-        ItemObject itemObject = _itemTransform.GetComponent<ItemObject>();
+        //Object - world related/visual
+        Transform _itemTransform = Instantiate(_itemPrefab);
+        Transform parent = _levelGrid.GetGridObjectTransform(_positionToInstantiate);
+        _itemTransform.SetParent(parent);
+        _itemTransform.localPosition = new Vector3(0, 0.2f, 0); //hardcoded
 
-        GridPosition gridPosition = _levelGrid.GetGridPosition(_itemTransform.position);
+        //Object - grid related
+        ItemObject itemObject = _itemTransform.GetComponent<ItemObject>();
+        GridPosition gridPosition = _levelGrid.GetGridPosition(_positionToInstantiate);
         _levelGrid.SetItemAtGridPosition(gridPosition, itemObject);
     }
-
 
 }

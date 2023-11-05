@@ -161,13 +161,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 26048008}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.5, y: 1, z: -0.5}
+  m_LocalScale: {x: 0.35714275, y: 5, z: 0.33333325}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_Father: {fileID: 1956414173}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &29763896
 GameObject:
@@ -3638,7 +3638,7 @@ MonoBehaviour:
   _levelGrid: {fileID: 26048009}
   _itemPrefab: {fileID: 3810862767335315952, guid: f8ca79b8683f75b418111782d112544d,
     type: 3}
-  _positionToInstantiate: {x: 1, y: 0, z: 2}
+  _positionToInstantiate: {x: 2, y: 0, z: 5}
 --- !u!4 &928064575
 Transform:
   m_ObjectHideFlags: 0
@@ -4721,7 +4721,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &1481533706
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6475,7 +6475,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1781316239
 Transform:
   m_ObjectHideFlags: 0
@@ -7073,6 +7073,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 757927984}
+  - {fileID: 26048010}
   m_Father: {fileID: 387749499}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}

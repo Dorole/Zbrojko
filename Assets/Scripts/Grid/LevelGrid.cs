@@ -7,16 +7,17 @@ public class LevelGrid : MonoBehaviour
 {
     [SerializeField] private Transform _gridDebugObjectPrefab = default;
     private GridSystem _gridSystem;
-
+    
     private void Awake()
     {
-        _gridSystem = new GridSystem(10, 10, 1f);
+        _gridSystem = new GridSystem(10, 10, 1f, transform);
         _gridSystem.CreateDebugObjects(_gridDebugObjectPrefab);
     }
 
     public void SetItemAtGridPosition(GridPosition gridPosition, ItemObject item)
     {
         GridObject gridObject = _gridSystem.GetGridObject(gridPosition);
+        //item.transform.SetParent();
         gridObject.SetItemObject(item);
     }
 
@@ -33,4 +34,7 @@ public class LevelGrid : MonoBehaviour
     }
 
     public GridPosition GetGridPosition(Vector3 worldPosition) => _gridSystem.GetGridPosition(worldPosition);
+
+    public Transform GetGridObjectTransform(Vector3 worldPosition) => _gridSystem.GetGridObjectTransform(worldPosition);
+
 }
