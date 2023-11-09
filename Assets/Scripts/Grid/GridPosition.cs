@@ -1,6 +1,6 @@
 public struct GridPosition
 {
-    public int x; //ALLOW FLOAT AND REFACTOR
+    public int x; 
     public int z;
 
     public GridPosition(int x, int z)

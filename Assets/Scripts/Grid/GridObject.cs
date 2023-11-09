@@ -24,6 +24,11 @@ public class GridObject
         return _itemObject;
     }
 
+    public GridPosition GetGridPosition() 
+    { 
+        return _gridPosition; 
+    }
+
     public override string ToString()
     {
         return _gridPosition.ToString() + "\n" + _itemObject;

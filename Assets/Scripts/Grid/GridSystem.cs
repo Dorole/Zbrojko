@@ -70,6 +70,20 @@ public class GridSystem //REFACTOR SO IT TAKES INTO ACCOUNT CONTAINER POSITION
         return _gridObjectArray[gridPosition.x, gridPosition.z];
     }
 
+    public Transform GetGridObjectTransform(GridPosition gridPosition)
+    {
+        for (int i = 0; i < _gridObjectTransforms.Count; i++)
+        {
+            if (_gridObjectTransforms[i].localPosition.x == GetWorldPosition(gridPosition).x
+                && _gridObjectTransforms[i].localPosition.z == GetWorldPosition(gridPosition).z)
+            {
+                return _gridObjectTransforms[i];
+            }
+        }
+
+        return null;
+    }
+
     public Transform GetGridObjectTransform(Vector3 worldPosition)
     {
         for (int i = 0; i < _gridObjectTransforms.Count; i++)
@@ -83,4 +97,16 @@ public class GridSystem //REFACTOR SO IT TAKES INTO ACCOUNT CONTAINER POSITION
 
         return null;
     }
+
+    public GridPosition GetRandomGridPosition()
+    {
+        int randX = Random.Range(0, _width);
+        int randZ = Random.Range(0, _height);
+
+        GridPosition gridPos = _gridObjectArray[randX, randZ].GetGridPosition();
+        Debug.Log("Random grid pos: " + gridPos);
+
+        return gridPos;
+    }
+
 }
