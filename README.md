@@ -33,9 +33,5 @@ There can be one or two numbers in the number container (addition). <br>
 Numbers and Zbrojkići can be disposed of into a basket which appears on the corresponding side of the screen when they are dragged there (subtraction).
 The scales will tip in favour of the larger number until they balance out.
 
-### Audio
-I am thinking of recording actual kids yelling out the numbers and merging their voices into one clip so it sounds like a bunch of kids are yelling out the numbers whenever a number is placed into a container or the balance is reached. <br>
-Zbrojko will have a theme song I came up with and I will have my friends help me with making an actual track out of it. 
-
 ### Release
-No release date as of yet. I am working on it when I have time.
+No release date as of yet.
