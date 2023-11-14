@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridSystem //REFACTOR SO IT TAKES INTO ACCOUNT CONTAINER POSITION
+public class GridSystem 
 {
     private int _width = default;
     private int _height = default;

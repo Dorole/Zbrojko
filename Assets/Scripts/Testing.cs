@@ -9,7 +9,18 @@ public class Testing : MonoBehaviour
 
     private void Start()
     {
-        GridPosition gridPos = new GridPosition(2, 3); //randomize
+        
+    }
+
+    private void Update()
+    {
+
+
+    }
+
+    public void Test_InstantiateObjectAtRandomPos()
+    {
+        _levelGrid.TryGetUnoccupiedGridPosition(out GridPosition gridPos);
 
         //Object - world related/visual
         Transform _itemTransform = Instantiate(_itemPrefab);
