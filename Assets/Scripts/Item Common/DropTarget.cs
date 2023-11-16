@@ -13,6 +13,8 @@ public class DropTarget : MonoBehaviour, IDragDestination<SO_ZbrojkoItem>
     [SerializeField] private LevelGrid _levelGrid;
     [SerializeField] private Vector3 _defaultLocalItemPosition = new Vector3(0, 0.2f, 0);
 
+    public event Action<SO_ZbrojkoItem> OnItemAdded;
+
     public void AddItems(SO_ZbrojkoItem item, int number)
     {
         //MathTeacher class prati ukupan zbroj u posudi - trebat ce ovdje i Remove funkcija
@@ -28,10 +30,13 @@ public class DropTarget : MonoBehaviour, IDragDestination<SO_ZbrojkoItem>
         Transform itemTransform = InstantiateItemInGrid(item.ItemPrefab, gridPos);
         ItemObject itemObject = ConfigureItemObject(itemTransform, item);
         _levelGrid.SetItemAtGridPosition(gridPos, itemObject);
+
+        OnItemAdded?.Invoke(item);
     }
 
     public int MaxAcceptable(SO_ZbrojkoItem item)
     {
+        //make use of this!
         return _maxAcceptable;
     }
 
