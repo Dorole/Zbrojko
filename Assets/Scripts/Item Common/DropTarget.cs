@@ -27,7 +27,7 @@ public class DropTarget : MonoBehaviour, IDragDestination<SO_ZbrojkoItem>
 
         _levelGrid.TryGetUnoccupiedGridPosition(out GridPosition gridPos);
 
-        Transform itemTransform = InstantiateItemInGrid(item.ItemPrefab, gridPos);
+        Transform itemTransform = InstantiateItemInGrid(item.ItemPrefabReference.ReferencedObject, gridPos);
         ItemObject itemObject = ConfigureItemObject(itemTransform, item);
         _levelGrid.SetItemAtGridPosition(gridPos, itemObject);
 

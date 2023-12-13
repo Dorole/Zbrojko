@@ -41,6 +41,25 @@ public class LevelGrid : MonoBehaviour
         gridObject.SetItemObject(null);
     }
 
+    //reset button callback
+    public void ClearAllItems()
+    {
+        foreach (var pos in _occupiedGridPositions)
+        {
+            ClearItemAtGridPosition(pos);
+            
+            Transform gridObject = GetGridObjectTransform(pos);
+            ItemObject itemObjectComponent = gridObject.GetComponentInChildren<ItemObject>();
+
+            if (itemObjectComponent != null)
+                Destroy(itemObjectComponent.gameObject); //implement pooling --> return to pool
+            else
+                Debug.Log("Item Object component not found.");
+        }
+
+        _occupiedGridPositions.Clear();
+    }
+
     public GridPosition GetGridPosition(Vector3 worldPosition) => _gridSystem.GetGridPosition(worldPosition);
 
     public Transform GetGridObjectTransform(Vector3 worldPosition) => _gridSystem.GetGridObjectTransform(worldPosition);

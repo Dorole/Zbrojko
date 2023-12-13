@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5717595b6a11f0468a183b5602ae196, type: 3}
-  m_Name: Number_5
+  m_Script: {fileID: 11500000, guid: 1da0561a099216f4fb5f8508e0dd6a78, type: 3}
+  m_Name: NumberPrefab_1
   m_EditorClassIdentifier: 
-  _prefabReference: {fileID: 11400000, guid: 50d7ad675fc30ed40b08763e5a5d5b10, type: 2}
-  _itemType: 1
-  _value: 5
-  _icon: {fileID: 0}
+  _gameObject: {fileID: 7164672475514296061, guid: f8ca79b8683f75b418111782d112544d,
+    type: 3}

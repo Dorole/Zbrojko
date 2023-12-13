@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 856a618e2c79f8648899260d342d2321, type: 3}
   m_Name: Zbrojkic_Default
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 7164672475514296061, guid: 34369e29fb0fd37439adda9ba761b3bc, type: 3}
+  _prefabReference: {fileID: 11400000, guid: 13392496a4608d941b7d644ed144f3d6, type: 2}
   _itemType: 0
   _value: 1
   _icon: {fileID: 0}
