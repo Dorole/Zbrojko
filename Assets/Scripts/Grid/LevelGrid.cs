@@ -7,6 +7,7 @@ public class LevelGrid : MonoBehaviour
     [SerializeField] private Transform _gridDebugObjectPrefab = default;
     [SerializeField] private int _gridWidth = 5;
     [SerializeField] private int _gridHeight = 4;
+    [SerializeField] private ObjectPooler _objectPool;
     private GridSystem _gridSystem;
     private int _totalGridPositions;
     private List<GridPosition> _occupiedGridPositions = new List<GridPosition>();
@@ -50,9 +51,9 @@ public class LevelGrid : MonoBehaviour
             
             Transform gridObject = GetGridObjectTransform(pos);
             ItemObject itemObjectComponent = gridObject.GetComponentInChildren<ItemObject>();
-
+            
             if (itemObjectComponent != null)
-                Destroy(itemObjectComponent.gameObject); //implement pooling --> return to pool
+                _objectPool.ReturnToPool(itemObjectComponent.GetItemType(), itemObjectComponent.gameObject); 
             else
                 Debug.Log("Item Object component not found.");
         }

@@ -8,7 +8,8 @@ using UnityEngine;
 /// </summary>
 public class DropTarget : MonoBehaviour, IDragDestination<SO_ZbrojkoItem>
 {
-    [SerializeField] private ItemType _acceptableItemType = ItemType.Number; 
+    [SerializeField] private ItemType _acceptableItemType = ItemType.Number;
+    [SerializeField] private ObjectPooler _objectPool;
     [SerializeField] private int _maxAcceptable = 10;
     [SerializeField] private LevelGrid _levelGrid;
     [SerializeField] private Vector3 _defaultLocalItemPosition = new Vector3(0, 0.2f, 0);
@@ -27,7 +28,7 @@ public class DropTarget : MonoBehaviour, IDragDestination<SO_ZbrojkoItem>
 
         _levelGrid.TryGetUnoccupiedGridPosition(out GridPosition gridPos);
 
-        Transform itemTransform = InstantiateItemInGrid(item.ItemPrefabReference.ReferencedObject, gridPos);
+        Transform itemTransform = InstantiateItemInGrid(gridPos);
         ItemObject itemObject = ConfigureItemObject(itemTransform, item);
         _levelGrid.SetItemAtGridPosition(gridPos, itemObject);
 
@@ -40,13 +41,14 @@ public class DropTarget : MonoBehaviour, IDragDestination<SO_ZbrojkoItem>
         return _maxAcceptable;
     }
 
-    private Transform InstantiateItemInGrid(GameObject itemPrefab, GridPosition gridPos)
+    private Transform InstantiateItemInGrid(GridPosition gridPos)
     {
-        Transform itemTransform = Instantiate(itemPrefab.transform);
+        Transform itemTransform = _objectPool.SpawnFromPool(_acceptableItemType).transform; 
         Transform parent = _levelGrid.GetGridObjectTransform(gridPos);
 
         itemTransform.SetParent(parent);
         itemTransform.localPosition = _defaultLocalItemPosition;
+        itemTransform.gameObject.SetActive(true);
 
         return itemTransform;
     }

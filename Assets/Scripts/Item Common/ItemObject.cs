@@ -28,4 +28,9 @@ public class ItemObject : MonoBehaviour
     {
         return _itemType.ToString();
     }
+
+    public ItemType GetItemType()
+    {
+        return _itemType;
+    }
 }
