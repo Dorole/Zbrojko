@@ -9,15 +9,16 @@ I got the idea from browsing a certain online shopping site where I stumbled upo
 
 I found the concept interesting and educational, but the toy itself was small, plastic and cheap-looking. So I decided to digitise it :) <br>
 
+### Current state [30-12-2023; prototype phase]
+https://github.com/Dorole/Zbrojko/assets/35565194/fb415654-b1ba-4f91-bc33-133549f6c020
+<br>*All visuals are placeholders. Next, I need to implement removing objects from the scale.*
+
 ### Design
 There will be a cute animal(ish) 3D character - Zbrojko - in the centre of the screen who will hold the scales. The character will have simple animations. <br>
 On the top of the screen, there will be a UI panel with colorful numbers, and on the bottom of the screen a UI panel with miniature versions of the 3D character (so called Zbrojkići). <br>
 
 ![image](https://github.com/Dorole/Zbrojko/assets/35565194/e76c872a-d29a-4932-98d6-f144238cc2e0)
 <br>*Initial sketch*
-
-![image](https://github.com/Dorole/Zbrojko/assets/35565194/8a63c667-e93b-4fcf-8874-7199a28f2308)
-<br>*Prototype scene with placeholder visuals as of 2023-10-31*
 
 The numbers, when dragged into the container, spawn a happy-looking 3D number which does simple animations and dances.
 
