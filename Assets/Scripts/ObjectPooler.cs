@@ -5,12 +5,12 @@ using UnityEngine;
 public class ObjectPooler : MonoBehaviour
 {
     [SerializeField] private List<Pool> _pools;
-    private Dictionary<ItemType, Queue<GameObject>> _poolDictionary;
+    private Dictionary<SO_GameObjectReference, Queue<GameObject>> _poolDictionary;
 
     // ****************************************************** UNITY CALLBACKS ******************************************************
     private void Start()
     {
-        _poolDictionary = new Dictionary<ItemType, Queue<GameObject>>();
+        _poolDictionary = new Dictionary<SO_GameObjectReference, Queue<GameObject>>();
         FillPools();
     }
 
@@ -27,26 +27,26 @@ public class ObjectPooler : MonoBehaviour
                 objectQueue.Enqueue(o);
             }
 
-            _poolDictionary.Add(pool.ItemType, objectQueue);
+            _poolDictionary.Add(pool.GameObjectReference, objectQueue);
         }
     }
 
     /// <summary>
     /// Expand pool if all items from the pool are out and more are needed.
     /// </summary>
-    private void ExpandPool(ItemType itemType)
+    private void ExpandPool(SO_GameObjectReference objectRef)
     {
-        Pool pool = _pools.Find(item => item.ItemType == itemType);
+        Pool pool = _pools.Find(item => item.GameObjectReference == objectRef);
 
         if (pool == null)
         {
-            Debug.LogWarning("Trying to expand non-existing pool of type " + itemType.ToString());
+            Debug.LogWarning("Trying to expand non-existing pool of type " + objectRef.ToString());
             return;
         }
 
         pool.Size++;
         GameObject o = InstantiateItem(pool);
-        _poolDictionary[itemType].Enqueue(o);
+        _poolDictionary[objectRef].Enqueue(o);
     }
 
     private GameObject InstantiateItem(Pool pool)
@@ -58,36 +58,36 @@ public class ObjectPooler : MonoBehaviour
         return o;
     }
 
-    private void ResetObject(ItemType itemType, GameObject objectToReset)
+    private void ResetObject(SO_GameObjectReference objectRef, GameObject objectToReset)
     {
-        Pool pool = _pools.Find(item => item.ItemType == itemType);
+        Pool pool = _pools.Find(item => item.GameObjectReference == objectRef);
         objectToReset.transform.SetParent(pool.Parent, false);
         objectToReset.transform.position = pool.Parent.position;
         objectToReset.transform.rotation = Quaternion.identity;
     }
 
     // ****************************************************** PUBLIC FUNCTIONS ******************************************************
-    public GameObject SpawnFromPool(ItemType itemType)
+    public GameObject SpawnFromPool(SO_GameObjectReference objectRef)
     {
-        if (!_poolDictionary.ContainsKey(itemType))
+        if (!_poolDictionary.ContainsKey(objectRef))
         {
-            Debug.LogWarning("Pool of type " + itemType.ToString() + " doesn't exist!");
+            Debug.LogWarning("Pool of type " + objectRef.ToString() + " doesn't exist!");
             return null;
         }
 
-        if (_poolDictionary[itemType].Count <= 0)
-            ExpandPool(itemType);
+        if (_poolDictionary[objectRef].Count <= 0)
+            ExpandPool(objectRef);
 
-        GameObject o = _poolDictionary[itemType].Dequeue();
+        GameObject o = _poolDictionary[objectRef].Dequeue();
 
         return o;
     }
 
-    public void ReturnToPool(ItemType itemType, GameObject objectToReturn)
+    public void ReturnToPool(SO_GameObjectReference objectRef, GameObject objectToReturn)
     {
-        _poolDictionary[itemType].Enqueue(objectToReturn);
+        _poolDictionary[objectRef].Enqueue(objectToReturn);
         objectToReturn.SetActive(false);
 
-        ResetObject(itemType, objectToReturn);
+        ResetObject(objectRef, objectToReturn);
     }
 }

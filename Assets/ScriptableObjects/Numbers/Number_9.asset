@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5717595b6a11f0468a183b5602ae196, type: 3}
   m_Name: Number_9
   m_EditorClassIdentifier: 
-  _prefabReference: {fileID: 11400000, guid: 50d7ad675fc30ed40b08763e5a5d5b10, type: 2}
+  _prefabReference: {fileID: 11400000, guid: d9cb113854bc9f340b7d9a252bb3c300, type: 2}
   _itemType: 1
   _value: 9
   _icon: {fileID: 0}

@@ -53,7 +53,7 @@ public class LevelGrid : MonoBehaviour
             ItemObject itemObjectComponent = gridObject.GetComponentInChildren<ItemObject>();
             
             if (itemObjectComponent != null)
-                _objectPool.ReturnToPool(itemObjectComponent.GetItemType(), itemObjectComponent.gameObject); 
+                _objectPool.ReturnToPool(itemObjectComponent.GetObjectReference(), itemObjectComponent.gameObject); 
             else
                 Debug.Log("Item Object component not found.");
         }

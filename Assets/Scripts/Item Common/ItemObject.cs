@@ -7,6 +7,7 @@ public class ItemObject : MonoBehaviour
     //should probably also be done through an SO?
     private SO_ZbrojkoItem _itemReference;
     private ItemType _itemType;
+    private SO_GameObjectReference _gameObjectReference;
 
     private void Start()
     {
@@ -17,6 +18,7 @@ public class ItemObject : MonoBehaviour
     {
         _itemReference = item;
         _itemType = item.ItemType;
+        _gameObjectReference = item.ItemPrefabReference;
     }
 
     public SO_ZbrojkoItem GetItemReference()
@@ -32,5 +34,10 @@ public class ItemObject : MonoBehaviour
     public ItemType GetItemType()
     {
         return _itemType;
+    }
+
+    public SO_GameObjectReference GetObjectReference()
+    {
+        return _gameObjectReference;
     }
 }

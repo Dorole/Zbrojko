@@ -46,4 +46,11 @@ public class MathTeacher : MonoBehaviour
             dropTarget.OnItemAdded -= DropTarget_OnItemAdded;
         }
     }
+
+    //reset button callback
+    public void ResetScore()
+    {
+        _zbrojkiciSum = 0;
+        _numbersSum = 0;
+    }
 }

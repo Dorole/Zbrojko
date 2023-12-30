@@ -2,7 +2,7 @@
 
 public class SO_ZbrojkoItem : ScriptableObject
 {
-    [SerializeField] private SO_GameObjectReference _prefabReference; //TEMP > make ScriptableReference
+    [SerializeField] private SO_GameObjectReference _prefabReference; 
     [SerializeField] private ItemType _itemType = default;
     [SerializeField] private int _value;
     [SerializeField] Sprite _icon = default; //potencijalno Zbrojkici ne? Kako s animacijom?

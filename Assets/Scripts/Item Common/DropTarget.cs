@@ -1,5 +1,6 @@
 using RPG.Core.UI.Dragging;
 using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 /// <summary>
@@ -28,7 +29,9 @@ public class DropTarget : MonoBehaviour, IDragDestination<SO_ZbrojkoItem>
 
         _levelGrid.TryGetUnoccupiedGridPosition(out GridPosition gridPos);
 
-        Transform itemTransform = InstantiateItemInGrid(gridPos);
+        SO_GameObjectReference objectRef = item.ItemPrefabReference;
+
+        Transform itemTransform = InstantiateItemInGrid(gridPos, objectRef);
         ItemObject itemObject = ConfigureItemObject(itemTransform, item);
         _levelGrid.SetItemAtGridPosition(gridPos, itemObject);
 
@@ -41,16 +44,21 @@ public class DropTarget : MonoBehaviour, IDragDestination<SO_ZbrojkoItem>
         return _maxAcceptable;
     }
 
-    private Transform InstantiateItemInGrid(GridPosition gridPos)
+    private Transform InstantiateItemInGrid(GridPosition gridPos, SO_GameObjectReference objectRef)
     {
-        Transform itemTransform = _objectPool.SpawnFromPool(_acceptableItemType).transform; 
+        Transform itemTransform = _objectPool.SpawnFromPool(objectRef).transform; 
         Transform parent = _levelGrid.GetGridObjectTransform(gridPos);
-
-        itemTransform.SetParent(parent);
-        itemTransform.localPosition = _defaultLocalItemPosition;
-        itemTransform.gameObject.SetActive(true);
+        ConfigureInstantiatedTransform(itemTransform, parent);
 
         return itemTransform;
+    }
+
+    private void ConfigureInstantiatedTransform(Transform item, Transform parent)
+    {
+        item.SetParent(parent);
+        item.localPosition = _defaultLocalItemPosition;
+        item.localRotation = Quaternion.identity;
+        item.gameObject.SetActive(true);
     }
 
     private ItemObject ConfigureItemObject(Transform itemTransform, SO_ZbrojkoItem item)
