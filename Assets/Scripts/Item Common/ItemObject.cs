@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemObject : MonoBehaviour
+public class ItemObject : MonoBehaviour, IDragObject
 {
-    //should probably also be done through an SO?
     private SO_ZbrojkoItem _itemReference;
     private ItemType _itemType;
     private SO_GameObjectReference _gameObjectReference;
 
-    private void Start()
-    {
-        
-    }
+    private Vector3 _position; //testing only
 
     public void Setup(SO_ZbrojkoItem item)
     {
@@ -21,14 +17,16 @@ public class ItemObject : MonoBehaviour
         _gameObjectReference = item.ItemPrefabReference;
     }
 
-    public SO_ZbrojkoItem GetItemReference()
-    {
-        return _itemReference;
-    }
-
     public override string ToString()
     {
         return _itemType.ToString();
+    }
+
+    // ******************** GETTER FUNCTIONS ********************
+
+    public SO_ZbrojkoItem GetItemReference()
+    {
+        return _itemReference;
     }
 
     public ItemType GetItemType()
@@ -39,5 +37,28 @@ public class ItemObject : MonoBehaviour
     public SO_GameObjectReference GetObjectReference()
     {
         return _gameObjectReference;
+    }
+
+    // ******************** INTERFACE FUNCTIONS ********************
+    public void OnStartDrag()
+    {
+        _position = transform.position;
+        //fire event
+        //open the destination area
+    }
+
+    public void OnDrag()
+    {
+        //potentially unneccessary
+    }
+
+    public void OnEndDrag()
+    {
+        transform.position = _position;
+
+        //fire event
+        //check if above destination area
+        //if yes trigger animation or something, clear the grid position, deduct value
+        //if no, return to start position
     }
 }
