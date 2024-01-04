@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 namespace RPG.Core.UI.Dragging
 {
-    public class DragItem<T> : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler where T : class
+    public class DragItem_UIElement<T> : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler where T : class
     {
         Vector3 _startPosition;
         Transform _originalParent;

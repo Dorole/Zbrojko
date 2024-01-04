@@ -1,9 +1,12 @@
+using RPG.Core.UI.Dragging;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class Drag3DObject : MonoBehaviour
+public class DragItem_3DObject : MonoBehaviour
 {
     [SerializeField] private InputAction _mouseClick;
     [SerializeField] private float _mouseDragPhysicsSpeed = 10;
@@ -22,6 +25,7 @@ public class Drag3DObject : MonoBehaviour
     {
         _mouseClick.Enable();
         _mouseClick.performed += _mouseClick_performed;
+        
     }
 
     private void OnDisable()
@@ -29,6 +33,7 @@ public class Drag3DObject : MonoBehaviour
         _mouseClick.performed -= _mouseClick_performed;
         _mouseClick.Disable();
     }
+
     private void _mouseClick_performed(InputAction.CallbackContext context)
     {
         Ray ray = _mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
@@ -71,6 +76,26 @@ public class Drag3DObject : MonoBehaviour
             }
         }
 
-        dragObject?.OnEndDrag();
+        dragObject?.OnEndDrag?.Invoke(IsPointerOverDropTarget());        
+    }
+
+    private bool IsPointerOverDropTarget()
+    {
+        PointerEventData eventData = new PointerEventData(EventSystem.current);
+        eventData.position = Mouse.current.position.ReadValue();
+
+        List<RaycastResult> hitResults = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, hitResults);
+
+        if (hitResults.Count > 0)
+        {
+            foreach(RaycastResult hitResult in hitResults)
+            {
+                if (hitResult.gameObject.TryGetComponent<IObjectDrop>(out IObjectDrop dropTarget))
+                    return true;
+            }
+        }
+
+        return false;
     }
 }
