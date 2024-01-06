@@ -62,7 +62,7 @@ public class ObjectPooler : MonoBehaviour
     {
         Pool pool = _pools.Find(item => item.GameObjectReference == objectRef);
         objectToReset.transform.SetParent(pool.Parent, false);
-        objectToReset.transform.position = pool.Parent.position;
+        objectToReset.transform.position = pool.Parent.position; 
         objectToReset.transform.rotation = Quaternion.identity;
     }
 

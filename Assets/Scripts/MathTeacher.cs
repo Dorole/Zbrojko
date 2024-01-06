@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class MathTeacher : MonoBehaviour
 {
-    [SerializeField] private DropTarget[] _dropTargets;
+    [SerializeField] private LevelGrid[] _levelGrids;
     [Header("DEBUG")]
     [SerializeField] private int _zbrojkiciSum = 0;
     [SerializeField] private int _numbersSum = 0;
@@ -14,21 +15,22 @@ public class MathTeacher : MonoBehaviour
 
     private void Start()
     {
-        foreach (var dropTarget in _dropTargets) 
+        foreach (var levelGrid in _levelGrids)
         {
-            dropTarget.OnItemAdded += DropTarget_OnItemAdded;
+            levelGrid.OnGridStateChanged += LevelGrid_OnGridStateChanged;
         }
     }
 
-    private void DropTarget_OnItemAdded(SO_ZbrojkoItem item)
+    //operation (1 or -1) - addition or deduction
+    private void LevelGrid_OnGridStateChanged(SO_ZbrojkoItem item, int operation)
     {
         switch (item.ItemType)
         {
             case ItemType.Zbrojkic:
-                _zbrojkiciSum += item.Value;
+                _zbrojkiciSum += (item.Value * operation);
                 break;
             case ItemType.Number:
-                _numbersSum += item.Value;
+                _numbersSum += (item.Value * operation);
                 break;
             default:
                 break;
@@ -36,14 +38,13 @@ public class MathTeacher : MonoBehaviour
 
         if (_zbrojkiciSum == _numbersSum)
             OnCalculationEqual?.Invoke();
-
     }
 
     private void OnDestroy()
     {
-        foreach (var dropTarget in _dropTargets)
+        foreach (var levelGrid in _levelGrids)
         {
-            dropTarget.OnItemAdded -= DropTarget_OnItemAdded;
+            levelGrid.OnGridStateChanged -= LevelGrid_OnGridStateChanged;
         }
     }
 

@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public interface IObjectDrop 
 {
-    
+    void HandleObjectPicked(ItemType itemType);
+    void HandleObjectDropped(ItemType itemType);
 }

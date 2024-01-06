@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,18 +10,18 @@ public class ObjectDrop : MonoBehaviour, IObjectDrop
     {
         _image.enabled = false;
 
-        DragObject.OnObjectPicked += DragObject_OnObjectPicked;
-        DragObject.OnObjectDropped += DragObject_OnObjectDropped;
+        DragObject.OnObjectPicked += HandleObjectPicked;
+        DragObject.OnObjectDropped += HandleObjectDropped;
     }
 
     //use tweening for this, see YT videos
-    private void DragObject_OnObjectPicked(ItemType itemType)
+    public void HandleObjectPicked(ItemType itemType)
     {
         if (itemType == _itemType)
             _image.enabled = true;
     }
 
-    private void DragObject_OnObjectDropped(ItemType itemType)
+    public void HandleObjectDropped(ItemType itemType)
     {
         if (itemType == _itemType)
             _image.enabled = false;
@@ -31,8 +29,8 @@ public class ObjectDrop : MonoBehaviour, IObjectDrop
 
     private void OnDestroy()
     {
-        DragObject.OnObjectPicked -= DragObject_OnObjectPicked;
-        DragObject.OnObjectDropped -= DragObject_OnObjectDropped;
+        DragObject.OnObjectPicked -= HandleObjectPicked;
+        DragObject.OnObjectDropped -= HandleObjectDropped;
     }
 
 }
