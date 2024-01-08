@@ -36,7 +36,7 @@ public class MathTeacher : MonoBehaviour
                 break;
         }
 
-        if (_zbrojkiciSum == _numbersSum)
+        if (_zbrojkiciSum == _numbersSum && _zbrojkiciSum != 0)
             OnCalculationEqual?.Invoke();
     }
 

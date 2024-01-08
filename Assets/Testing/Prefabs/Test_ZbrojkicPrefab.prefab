@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4956102449761440826}
   - component: {fileID: -6052868959148923159}
   - component: {fileID: 646063130228361613}
+  - component: {fileID: 8767751409289554032}
   m_Layer: 0
   m_Name: Test_ZbrojkicPrefab
   m_TagString: Untagged
@@ -133,3 +134,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7af624f5742430643ba2ba14aa753ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8767751409289554032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7164672475514296061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4448905397d34a641a46139fb7a3ee3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dropTime: 1
+  _moveTime: 2
+  _minY: 2
+  _maxY: 3.5
+  _xMoveDiff: 5

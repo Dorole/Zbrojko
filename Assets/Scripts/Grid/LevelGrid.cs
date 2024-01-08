@@ -15,14 +15,6 @@ public class LevelGrid : MonoBehaviour
     [SerializeField] private ObjectPooler _objectPool;
     [SerializeField] private Vector3 _defaultLocalItemPosition = new Vector3(0, 0.2f, 0);
 
-    [System.Serializable]
-    public struct PointPair
-    {
-        public Transform StartPoint;
-        public Transform EndPoint;
-    }
-    [SerializeField] private List<PointPair> _pairs = new List<PointPair>();
-
     private GridSystem _gridSystem;
     private int _totalGridPositions;
     private List<GridPosition> _occupiedGridPositions = new List<GridPosition>();
@@ -126,11 +118,6 @@ public class LevelGrid : MonoBehaviour
 
         SO_ZbrojkoItem itemRef = item.GetItemReference();
         OnGridStateChanged?.Invoke(itemRef, -1);
-
-        //item.MoveToExit();
-        PointPair pointPair = _pairs[0];
-        MoveObject(item, pointPair);
-
     }
 
     private void SetItemAtGridPosition(GridPosition gridPosition, ItemObject item)
@@ -176,22 +163,4 @@ public class LevelGrid : MonoBehaviour
         return itemObject;
     }
 
-    //*************** TEST
-    private void MoveObject(ItemObject item, PointPair pointPair) //each obj should move itself?
-    {
-        Vector3 startPos = pointPair.StartPoint.position;
-        Vector3 endPos = pointPair.EndPoint.position;
-
-        GameObject itemObject = item.gameObject;
-        itemObject.transform.position = startPos;
-
-        LeanTween.move(itemObject, endPos, 2f)
-                 .setEaseLinear()
-                 .setOnComplete(() => OnMoveComplete(item));
-    }
-
-    private void OnMoveComplete(ItemObject item)
-    {
-        _objectPool.ReturnToPool(item.GetObjectReference(), item.gameObject);
-    }
 }

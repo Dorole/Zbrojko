@@ -14,7 +14,7 @@ public class Waypoints : MonoBehaviour
     [SerializeField] private List<Path> _numberPaths = new List<Path>();
     [SerializeField] private List<Path> _zbrojkicPaths = new List<Path>();
 
-    public Path GetRandomPath(ItemType itemType)
+    private Path GetRandomPath(ItemType itemType)
     {
         if (itemType == ItemType.Number)
         {
@@ -40,13 +40,32 @@ public class Waypoints : MonoBehaviour
         }
     }
 
-    public Vector3 GetStartPosition(Path path)
+    private Vector3 GetStartPosition(Path path)
     {
+        if (path.StartPoint == null)
+        {
+            Debug.LogError("StartPoint is null in GetStartPosition!");
+            return Vector3.zero; 
+        }
+
         return path.StartPoint.position;
     }
 
-    public Vector3 GetEndPosition(Path path)
+    private Vector3 GetEndPosition(Path path)
     {
+        if (path.EndPoint == null)
+        {
+            Debug.LogError("EndPoint is null in GetEndPosition!");
+            return Vector3.zero;
+        }
+
         return path.EndPoint.position;
+    }
+
+    public (Vector3 start, Vector3 end) GetRandomPathPositions(ItemType itemType)
+    {
+        Path path = GetRandomPath(itemType);
+
+        return (GetStartPosition(path), GetEndPosition(path));
     }
 }
