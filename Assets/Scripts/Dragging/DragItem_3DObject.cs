@@ -6,12 +6,14 @@ using UnityEngine.InputSystem;
 
 public class DragItem_3DObject : MonoBehaviour
 {
-    [SerializeField] private InputAction _mouseClick;
+    [SerializeField] private InputAction _objectPress;
+    [SerializeField] private InputAction _pressScreenPosition;
     [SerializeField] private float _mouseDragPhysicsSpeed = 10;
     [SerializeField] private float _mouseDragSpeed = 0.1f;
 
     private Camera _mainCamera;
     private WaitForFixedUpdate _waitForFixedUpdate = new WaitForFixedUpdate();
+    private Vector3 _currentScreenPosition;
     private Vector3 _velocity = Vector3.zero;
 
     private void Awake()
@@ -21,20 +23,32 @@ public class DragItem_3DObject : MonoBehaviour
 
     private void OnEnable()
     {
-        _mouseClick.Enable();
-        _mouseClick.performed += _mouseClick_performed;
+        _pressScreenPosition.Enable();
+        _objectPress.Enable();
+
+        _pressScreenPosition.performed += _pressScreenPosition_performed;
+        _objectPress.performed += _mouseClick_performed;
         
     }
 
     private void OnDisable()
     {
-        _mouseClick.performed -= _mouseClick_performed;
-        _mouseClick.Disable();
+        _pressScreenPosition.performed -= _pressScreenPosition_performed;
+        _objectPress.performed -= _mouseClick_performed;
+
+        _pressScreenPosition.Disable();
+        _objectPress.Disable();
+    }
+    
+    private void _pressScreenPosition_performed(InputAction.CallbackContext context)
+    {
+        _currentScreenPosition = context.ReadValue<Vector2>();
     }
 
     private void _mouseClick_performed(InputAction.CallbackContext context)
     {
-        Ray ray = _mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        Ray ray = _mainCamera.ScreenPointToRay(_currentScreenPosition);
+
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit))
@@ -57,9 +71,9 @@ public class DragItem_3DObject : MonoBehaviour
         float initialDistance = Vector3.Distance(clickedObject.transform.position, _mainCamera.transform.position);
 
         //call onDrag() inside the loop
-        while (_mouseClick.ReadValue<float>() != 0)
+        while (_objectPress.ReadValue<float>() != 0)
         {
-            Ray ray = _mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+            Ray ray = _mainCamera.ScreenPointToRay(_currentScreenPosition);
 
             if (rigidbody != null)
             {
@@ -80,7 +94,7 @@ public class DragItem_3DObject : MonoBehaviour
     private bool IsPointerOverDropTarget()
     {
         PointerEventData eventData = new PointerEventData(EventSystem.current);
-        eventData.position = Mouse.current.position.ReadValue();
+        eventData.position = _currentScreenPosition;
 
         List<RaycastResult> hitResults = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, hitResults);
