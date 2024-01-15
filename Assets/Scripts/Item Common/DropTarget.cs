@@ -1,5 +1,4 @@
 using RPG.Core.UI.Dragging;
-using System;
 using UnityEngine;
 
 /// <summary>
@@ -9,25 +8,20 @@ using UnityEngine;
 public class DropTarget : MonoBehaviour, IDragDestination<SO_ZbrojkoItem>
 {   
     [SerializeField] private ItemType _acceptableItemType = ItemType.Number;
-    [SerializeField] private int _maxAcceptable = 10;
     [SerializeField] private LevelGrid _levelGrid;
 
     public void AddItems(SO_ZbrojkoItem item, int number)
     {
-        if (_acceptableItemType != item.ItemType)
+        if (_acceptableItemType != item.ItemType || !_levelGrid.HasAvailablePositions())
         {
-            Debug.Log("Item types don't match.");
             return;
         }
 
         _levelGrid.AddItemToGrid(item);
-    }
+     }
 
     public int MaxAcceptable(SO_ZbrojkoItem item)
     {
-        //make use of this!
-        return _maxAcceptable;
+        return _levelGrid.GetTotalAvailablePositions();
     }
-
-
 }

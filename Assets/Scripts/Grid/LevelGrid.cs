@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
 public class LevelGrid : MonoBehaviour
@@ -12,6 +13,8 @@ public class LevelGrid : MonoBehaviour
     [SerializeField] private int _gridHeight = 4;
     [SerializeField] private ObjectPooler _objectPool;
     [SerializeField] private Vector3 _defaultLocalItemPosition = new Vector3(0, 0.2f, 0);
+    
+    [SerializeField] private int _occupiedGPCount; // DEBUG
 
     private GridSystem _gridSystem;
     private int _totalGridPositions;
@@ -66,9 +69,19 @@ public class LevelGrid : MonoBehaviour
             gridPosition = _gridSystem.GetRandomGridPosition();
 
         _occupiedGridPositions.Add(gridPosition);
-        Debug.Log("Position occupied: " + gridPosition);
+        _occupiedGPCount = _occupiedGridPositions.Count;
 
         return true;
+    }
+
+    public int GetTotalAvailablePositions()
+    {
+        return _totalGridPositions;
+    }
+
+    public bool HasAvailablePositions()
+    {
+        return _occupiedGridPositions.Count < _totalGridPositions;
     }
 
     //reset button callback
@@ -81,7 +94,7 @@ public class LevelGrid : MonoBehaviour
 
             if (itemObjectComponent != null)
             {
-                ClearItemAtGridPosition(pos);
+                SetItemAtGridPosition(pos, null);
                 _objectPool.ReturnToPool(itemObjectComponent.GetObjectReference(), itemObjectComponent.gameObject);
             }
             else
@@ -89,10 +102,19 @@ public class LevelGrid : MonoBehaviour
         }
 
         _occupiedGridPositions.Clear();
+        _occupiedGPCount = _occupiedGridPositions.Count;
     }
 
-
     //********************************** PRIVATE FUNCTIONS **********************************
+    private GridObject GetGridObject(GridPosition gridPosition) => 
+        _gridSystem.GetGridObject(gridPosition);
+
+    private ItemObject GetItemAtGridPosition(GridPosition gridPosition) =>
+    _gridSystem.GetGridObject(gridPosition).GetItemObject();
+
+    private void SetItemAtGridPosition(GridPosition gridPosition, ItemObject item) => 
+        _gridSystem.GetGridObject(gridPosition).SetItemObject(item);
+
     private GridPosition GetItemGridPosition(ItemObject item)
     {
         foreach (var pos in _occupiedGridPositions)
@@ -106,7 +128,7 @@ public class LevelGrid : MonoBehaviour
         Debug.LogWarning($"Tried to get the position of an item {item.ToString()}, but none was found in grid.");
         return new GridPosition();
     }
-
+    
     private void DragObject_OnObjectRemoved(ItemObject item)
     {
         if (item.GetItemType() != _itemType) return;
@@ -118,22 +140,12 @@ public class LevelGrid : MonoBehaviour
         OnGridStateChanged?.Invoke(itemRef, -1);
     }
 
-    private void SetItemAtGridPosition(GridPosition gridPosition, ItemObject item)
-    {
-        GridObject gridObject = _gridSystem.GetGridObject(gridPosition);
-        gridObject.SetItemObject(item);
-    }
-
-    private ItemObject GetItemAtGridPosition(GridPosition gridPosition)
-    {
-        GridObject gridObject = _gridSystem.GetGridObject(gridPosition);
-        return gridObject.GetItemObject();
-    }
-
     private void ClearItemAtGridPosition(GridPosition gridPosition)
     {
-        GridObject gridObject = _gridSystem.GetGridObject(gridPosition);
-        gridObject.SetItemObject(null);
+        SetItemAtGridPosition(gridPosition, null);
+
+        _occupiedGridPositions.Remove(gridPosition);
+        _occupiedGPCount = _occupiedGridPositions.Count;
     }
 
     private Transform InstantiateItemInGrid(GridPosition gridPos, SO_GameObjectReference objectRef)

@@ -37,11 +37,6 @@ public class DragObject : MonoBehaviour, IDragObject
         if (isOverTarget)
         {
             Debug.Log("Dropped over target!");
-            //trigger animation or something, clear the grid position, deduct value
-            //Check LevelGrid > RemoveAllItems
-            //1.Clear grid pos
-            //2.Trigger animation or whatever > mozda coroutine i onda na kraju return to pool?
-            //3.Return to pool
             OnObjectRemoved?.Invoke(_itemObject);
         }
         else

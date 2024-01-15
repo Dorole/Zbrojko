@@ -7,19 +7,15 @@ public class ItemObjectMover : MonoBehaviour
     [SerializeField] private float _dropTime = 1f;
     [SerializeField] private float _moveTime = 2f;
     [Header("Move positions")]
-    [SerializeField] private float _minY = 1.8f;
-    [SerializeField] private float _maxY = 3.5f;
+    [SerializeField] private float _minY = -1;
+    [SerializeField] private float _maxY = 1f;
     [SerializeField] private float _xMoveDiff = 5f; 
 
-    //private Waypoints _waypoints;
     private ObjectPooler _pool;
     private ItemObject _item;
 
     private void OnEnable()
     {
-        //if ( _waypoints == null)
-        //    _waypoints = FindObjectOfType<Waypoints>();
-
         if (_pool == null)
             _pool = FindObjectOfType<ObjectPooler>();
         
@@ -41,8 +37,6 @@ public class ItemObjectMover : MonoBehaviour
 
     private IEnumerator CO_MoveObject()
     {
-        //var positions = _waypoints.GetRandomPathPositions(_item.GetItemType());
-
         float newY = Random.Range(_minY, _maxY);
         LeanTween.moveY(gameObject, newY, _dropTime).setEaseOutBounce();
         

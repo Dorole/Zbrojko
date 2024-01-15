@@ -159,6 +159,7 @@ MonoBehaviour:
   _gridHeight: 4
   _objectPool: {fileID: 1400791344}
   _defaultLocalItemPosition: {x: 0, y: 0.3, z: 0}
+  _occupiedGPCount: 0
 --- !u!4 &26048010
 Transform:
   m_ObjectHideFlags: 0
@@ -3102,7 +3103,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _acceptableItemType: 0
-  _maxAcceptable: 20
   _levelGrid: {fileID: 26048009}
 --- !u!114 &757927986
 MonoBehaviour:
@@ -6235,7 +6235,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _acceptableItemType: 1
-  _maxAcceptable: 2
   _levelGrid: {fileID: 2005419841}
 --- !u!114 &1611158418
 MonoBehaviour:
@@ -8428,6 +8427,7 @@ MonoBehaviour:
   _gridHeight: 2
   _objectPool: {fileID: 1400791344}
   _defaultLocalItemPosition: {x: 0, y: 0.2, z: 0}
+  _occupiedGPCount: 0
 --- !u!1 &2019117576
 GameObject:
   m_ObjectHideFlags: 0

@@ -148,6 +148,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dropTime: 1
   _moveTime: 2
-  _minY: 2
-  _maxY: 3.5
+  _minY: 3
+  _maxY: 4
   _xMoveDiff: 5
