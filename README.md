@@ -25,6 +25,10 @@ The numbers, when dragged into the container, spawn a happy-looking 3D number wh
 ![image](https://github.com/Dorole/Zbrojko/assets/35565194/85a30368-e2b1-4691-85e9-5f8f9df5b005)
 <br>*I can't draw well, but this is the gist of it :)*
 
+![Snimka zaslona 2024-01-27 175240](https://github.com/Dorole/Zbrojko/assets/35565194/59cf28b9-f70a-4b6d-ae0e-b6c1477afc21)
+<br>*24-01-2024: Can't believe I found an asset which is exactly what I had in mind, to the T :D*
+
+
 Zbrojkići, when dragged into the container, do the same. 
 
 ### Mechanics
