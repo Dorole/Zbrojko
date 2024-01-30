@@ -2604,7 +2604,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26bc180478f004d48a5e489f7bd4e78f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mathTeacher: {fileID: 994311440}
   _messagePanel: {fileID: 2019117576}
   _messageText: {fileID: 1129218902}
   _congratulationsMessages:

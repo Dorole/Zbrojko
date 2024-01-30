@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da0561a099216f4fb5f8508e0dd6a78, type: 3}
   m_Name: SO_Ref_2
   m_EditorClassIdentifier: 
-  _gameObject: {fileID: 2494415996172940514, guid: 4f30878819cdc5f4fad8c1fe1482a123,
+  _gameObject: {fileID: 2494415996172940514, guid: 57c3e0f8c48158c43a02ac93e76c212e,
     type: 3}

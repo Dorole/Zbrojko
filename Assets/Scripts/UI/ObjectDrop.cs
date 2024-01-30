@@ -10,8 +10,8 @@ public class ObjectDrop : MonoBehaviour, IObjectDrop
     {
         _image.enabled = false;
 
-        DragObject.OnObjectPicked += HandleObjectPicked;
-        DragObject.OnObjectDropped += HandleObjectDropped;
+        DragObject.s_OnObjectPicked += HandleObjectPicked;
+        DragObject.s_OnObjectDropped += HandleObjectDropped;
     }
 
     //use tweening for this, see YT videos
@@ -29,8 +29,8 @@ public class ObjectDrop : MonoBehaviour, IObjectDrop
 
     private void OnDestroy()
     {
-        DragObject.OnObjectPicked -= HandleObjectPicked;
-        DragObject.OnObjectDropped -= HandleObjectDropped;
+        DragObject.s_OnObjectPicked -= HandleObjectPicked;
+        DragObject.s_OnObjectDropped -= HandleObjectDropped;
     }
 
 }

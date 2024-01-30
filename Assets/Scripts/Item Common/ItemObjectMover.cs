@@ -14,22 +14,22 @@ public class ItemObjectMover : MonoBehaviour
     private ObjectPooler _pool;
     private ItemObject _item;
 
-    private void OnEnable()
-    {
-        if (_pool == null)
-            _pool = FindObjectOfType<ObjectPooler>();
-        
-        DragObject.OnObjectRemoved += DragObject_OnObjectRemoved;
-    }
-
     private void Awake()
     {
         _item = GetComponent<ItemObject>();
     }
 
+    private void OnEnable()
+    {
+        if (_pool == null)
+            _pool = FindObjectOfType<ObjectPooler>();
+        
+        DragObject.s_OnObjectRemoved += DragObject_OnObjectRemoved;
+    }
+
     private void DragObject_OnObjectRemoved(ItemObject item)
     {
-        if (item.GetItemType() != _item.GetItemType() || item != _item) 
+        if (item.GetItemType() != _item.GetItemType() || item != _item)
             return;
 
         StartCoroutine(CO_MoveObject());
@@ -38,8 +38,8 @@ public class ItemObjectMover : MonoBehaviour
     private IEnumerator CO_MoveObject()
     {
         float newY = Random.Range(_minY, _maxY);
-        LeanTween.moveY(gameObject, newY, _dropTime).setEaseOutBounce();
-        
+        LeanTween.moveY(gameObject, newY, _dropTime);
+
         yield return new WaitForSeconds(_dropTime);
 
         float moveDirection = (_item.GetItemType() == ItemType.Zbrojkic) ? _xMoveDiff * -1 : _xMoveDiff;
@@ -47,7 +47,6 @@ public class ItemObjectMover : MonoBehaviour
         LeanTween.moveX(gameObject, transform.position.x + moveDirection, _moveTime)
                 .setEaseLinear()
                 .setOnComplete(() => OnMoveComplete());
-
     }
 
     private void OnMoveComplete()
@@ -57,6 +56,6 @@ public class ItemObjectMover : MonoBehaviour
 
     private void OnDisable()
     {
-        DragObject.OnObjectRemoved -= DragObject_OnObjectRemoved;
+        DragObject.s_OnObjectRemoved -= DragObject_OnObjectRemoved;
     }
 }

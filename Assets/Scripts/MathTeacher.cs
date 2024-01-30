@@ -8,7 +8,7 @@ public class MathTeacher : MonoBehaviour
     [SerializeField] private int _zbrojkiciSum = 0;
     [SerializeField] private int _numbersSum = 0;
 
-    public event Action OnCalculationEqual;
+    public static event Action OnCalculationEqual;
 
     private void Start()
     {

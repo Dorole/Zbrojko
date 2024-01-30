@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class UIMessage : MonoBehaviour
 {
-    [SerializeField] private MathTeacher _mathTeacher = default;
+    //[SerializeField] private MathTeacher _mathTeacher = default;
     [SerializeField] private GameObject _messagePanel = default;
     [SerializeField] private TextMeshProUGUI _messageText = default;
     [SerializeField] private string[] _congratulationsMessages = default; //scriptable obj - customize
@@ -14,7 +14,7 @@ public class UIMessage : MonoBehaviour
     private void Start()
     {
         _messagePanel.SetActive(false);
-        _mathTeacher.OnCalculationEqual += _mathTeacher_OnCalculationEqual;
+        MathTeacher.OnCalculationEqual += _mathTeacher_OnCalculationEqual;
 
     }
 
@@ -40,6 +40,6 @@ public class UIMessage : MonoBehaviour
 
     private void OnDestroy()
     {
-        _mathTeacher.OnCalculationEqual -= _mathTeacher_OnCalculationEqual;
+        MathTeacher.OnCalculationEqual -= _mathTeacher_OnCalculationEqual;
     }
 }

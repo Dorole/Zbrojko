@@ -31,12 +31,12 @@ public class LevelGrid : MonoBehaviour
     {
         _totalGridPositions = _gridWidth * _gridHeight;
 
-        DragObject.OnObjectRemoved += DragObject_OnObjectRemoved;
+        DragObject.s_OnObjectRemoved += DragObject_OnObjectRemoved;
     }
 
     private void OnDestroy()
     {
-        DragObject.OnObjectRemoved -= DragObject_OnObjectRemoved;
+        DragObject.s_OnObjectRemoved -= DragObject_OnObjectRemoved;
     }
 
     //********************************** PUBLIC FUNCTIONS **********************************

@@ -3,9 +3,12 @@ using UnityEngine;
 
 public class DragObject : MonoBehaviour, IDragObject
 {
-    public static event Action<ItemType> OnObjectPicked;
-    public static event Action<ItemType> OnObjectDropped;
-    public static event Action<ItemObject> OnObjectRemoved;
+    public static event Action<ItemType> s_OnObjectPicked;
+    public static event Action<ItemType> s_OnObjectDropped;
+    public static event Action<ItemObject> s_OnObjectRemoved;
+    public event Action OnObjectPicked;
+    public event Action OnObjectDropped;
+
     public Action<bool> OnEndDrag { get; set; }
 
     private Vector3 _startPosition;
@@ -24,12 +27,13 @@ public class DragObject : MonoBehaviour, IDragObject
     public void OnStartDrag()
     {
         _startPosition = transform.position;
-        OnObjectPicked?.Invoke(_itemType);
+
+        s_OnObjectPicked?.Invoke(_itemType);
+        OnObjectPicked?.Invoke();
     }
 
     public void OnDrag()
-    {
-        //potentially just trigger animation
+    {      
     }
 
     private void HandleDropCompleted(bool isOverTarget)
@@ -37,14 +41,15 @@ public class DragObject : MonoBehaviour, IDragObject
         if (isOverTarget)
         {
             Debug.Log("Dropped over target!");
-            OnObjectRemoved?.Invoke(_itemObject);
+            s_OnObjectRemoved?.Invoke(_itemObject);
         }
         else
         {
             transform.position = _startPosition;
         }
 
-        OnObjectDropped?.Invoke(_itemType);
+        s_OnObjectDropped?.Invoke(_itemType);
+        OnObjectDropped?.Invoke();
     }
 
 }

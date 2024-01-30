@@ -74,6 +74,7 @@ public class DragItem_3DObject : MonoBehaviour
         while (_objectPress.ReadValue<float>() != 0)
         {
             Ray ray = _mainCamera.ScreenPointToRay(_currentScreenPosition);
+            dragObject.OnDrag();
 
             if (rigidbody != null)
             {
