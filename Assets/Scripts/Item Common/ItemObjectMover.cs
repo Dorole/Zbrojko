@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -5,7 +6,7 @@ public class ItemObjectMover : MonoBehaviour
 {
     [Header("Move time")]
     [SerializeField] private float _dropTime = 1f;
-    [SerializeField] private float _moveTime = 2f;
+    [SerializeField] private float _moveTime = 3f;
     [Header("Move positions")]
     [SerializeField] private float _minY = -1;
     [SerializeField] private float _maxY = 1f;
@@ -13,10 +14,15 @@ public class ItemObjectMover : MonoBehaviour
 
     private ObjectPooler _pool;
     private ItemObject _item;
+    private DragObject _dragObject;
 
+    public event Action OnObjectDropped;
+
+    // ************************************ UNITY CALLBACKS ************************************
     private void Awake()
     {
         _item = GetComponent<ItemObject>();
+        _dragObject = GetComponent<DragObject>();
     }
 
     private void OnEnable()
@@ -24,24 +30,19 @@ public class ItemObjectMover : MonoBehaviour
         if (_pool == null)
             _pool = FindObjectOfType<ObjectPooler>();
         
-        DragObject.s_OnObjectRemoved += DragObject_OnObjectRemoved;
+        _dragObject.OnObjectRemoved += DragObject_OnObjectRemoved;
+        
     }
 
-    private void DragObject_OnObjectRemoved(ItemObject item)
+    private void OnDisable()
     {
-        if (item.GetItemType() != _item.GetItemType() || item != _item)
-            return;
-
-        StartCoroutine(CO_MoveObject());
+        _dragObject.OnObjectRemoved -= DragObject_OnObjectRemoved;
     }
 
-    private IEnumerator CO_MoveObject()
+    // ************************************ PUBLIC FUNCTIONS ************************************
+    //animation event
+    public void MoveOut()
     {
-        float newY = Random.Range(_minY, _maxY);
-        LeanTween.moveY(gameObject, newY, _dropTime);
-
-        yield return new WaitForSeconds(_dropTime);
-
         float moveDirection = (_item.GetItemType() == ItemType.Zbrojkic) ? _xMoveDiff * -1 : _xMoveDiff;
 
         LeanTween.moveX(gameObject, transform.position.x + moveDirection, _moveTime)
@@ -49,13 +50,31 @@ public class ItemObjectMover : MonoBehaviour
                 .setOnComplete(() => OnMoveComplete());
     }
 
+    //animation event
+    public void RotateLeft()
+    {
+        transform.eulerAngles = new Vector3(0, 90, 0);
+    }
+
+    // ************************************ PRIVATE FUNCTIONS ************************************
+    private void DragObject_OnObjectRemoved()
+    {
+        StartCoroutine(CO_DropObject());
+    }
+
+    private IEnumerator CO_DropObject()
+    {
+        float newY = UnityEngine.Random.Range(_minY, _maxY);
+        LeanTween.moveY(gameObject, newY, _dropTime);
+
+        yield return new WaitForSeconds(_dropTime);
+        OnObjectDropped?.Invoke();
+    }
+
     private void OnMoveComplete()
     {
         _pool.ReturnToPool(_item.GetObjectReference(), gameObject);
     }
 
-    private void OnDisable()
-    {
-        DragObject.s_OnObjectRemoved -= DragObject_OnObjectRemoved;
-    }
+
 }

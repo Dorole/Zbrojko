@@ -8,6 +8,7 @@ public class DragObject : MonoBehaviour, IDragObject
     public static event Action<ItemObject> s_OnObjectRemoved;
     public event Action OnObjectPicked;
     public event Action OnObjectDropped;
+    public event Action OnObjectRemoved;
 
     public Action<bool> OnEndDrag { get; set; }
 
@@ -42,6 +43,7 @@ public class DragObject : MonoBehaviour, IDragObject
         {
             Debug.Log("Dropped over target!");
             s_OnObjectRemoved?.Invoke(_itemObject);
+            OnObjectRemoved?.Invoke();
         }
         else
         {

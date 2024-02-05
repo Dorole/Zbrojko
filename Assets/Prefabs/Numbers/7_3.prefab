@@ -814,7 +814,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 8b5923fe8cee2114d847ec93f799d8e2, type: 3}
   m_Controller: {fileID: 9100000, guid: 538ebc2aa5919c84e89e2bb9c5923555, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -914,8 +914,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4448905397d34a641a46139fb7a3ee3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dropTime: 1
-  _moveTime: 2
+  _dropTime: 0.6
+  _moveTime: 3
   _minY: 3
   _maxY: 4
   _xMoveDiff: 5
@@ -931,14 +931,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68939b7043c63584f96a37dab25254d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _idleAnimatorController: {fileID: 9100000, guid: 64ac85e533ab3734e963928b161b6a9b,
-    type: 2}
-  _positionsController: {fileID: 9100000, guid: cc1beab0e2f8a574ba80fda342c717f8,
+  _numberAnimatorController: {fileID: 9100000, guid: a574e58b0938f284a90663f35baea621,
     type: 2}
   _idleAnimation: idle
   _dragAnimation: tension
   _victoryAnimation: victory
-  _itemType: 1
+  _exitAnimation: exit
+  _celebrationPeriod: 3
 --- !u!1 &3888331816809858480
 GameObject:
   m_ObjectHideFlags: 0

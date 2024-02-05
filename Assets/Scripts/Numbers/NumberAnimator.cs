@@ -2,45 +2,53 @@ using System;
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(ItemObjectMover))]
 public class NumberAnimator : MonoBehaviour
 {
-    [SerializeField] private RuntimeAnimatorController _moveController;
-    [SerializeField] private RuntimeAnimatorController _positionsController;
+    [SerializeField] private RuntimeAnimatorController _numberAnimatorController; 
 
     [SerializeField] private string _idleAnimation = "idle";
     [SerializeField] private string _dragAnimation = "tension";
     [SerializeField] private string _victoryAnimation = "victory";
+    [SerializeField] private string _exitAnimation = "exit";
     [SerializeField] private float _celebrationPeriod = 3f; //should be the same as other stuff in victory
+    //MathTeacher aktivira neki state/bool i to traje dok je na vagi balans i toliki je i celebrationPeriod?
 
-    private Action _idleDelegate; //
+    private Animator _animator;
+    private AnimationState _currentState;
+    private Action _idleDelegate; 
     private Action _draggingDelegate;
     private Action _victoryDelegate;
-    private DragObject _dragObject;
-    private Animator _animator;
+    private Action _exitDelegate;
     private Coroutine _currentAnimationCoroutine;
-    private AnimationState _currentState;
+    private DragObject _dragObject;
+    private ItemObjectMover _itemObjectMover;
     private int _randomInt;
-
 
     // ************************************ UNITY CALLBACKS ************************************
     private void Awake()
     {
         _animator = GetComponent<Animator>();
         _animator.applyRootMotion = false;
+        _animator.runtimeAnimatorController = _numberAnimatorController;
 
         _dragObject = GetComponent<DragObject>();
+        _itemObjectMover = GetComponent<ItemObjectMover>();
 
         _idleDelegate = () => ChangeState(AnimationState.IDLE);
         _draggingDelegate = () => ChangeState(AnimationState.DRAGGING);
         _victoryDelegate = () => ChangeState(AnimationState.VICTORY);
+        _exitDelegate = () => ChangeState(AnimationState.EXIT); 
     }
 
     private void OnEnable()
     {
-        ResetAnimator();
+        ResetState();
         
         _dragObject.OnObjectPicked += _draggingDelegate;
+        _dragObject.OnObjectDropped += _idleDelegate;
         MathTeacher.OnCalculationEqual += _victoryDelegate;
+        _itemObjectMover.OnObjectDropped += _exitDelegate;
     }
 
     private void Update()
@@ -53,7 +61,9 @@ public class NumberAnimator : MonoBehaviour
         StopAllCoroutines();
 
         _dragObject.OnObjectPicked -= _draggingDelegate;
+        _dragObject.OnObjectDropped -= _idleDelegate;
         MathTeacher.OnCalculationEqual -= _victoryDelegate;
+        _itemObjectMover.OnObjectDropped -= _exitDelegate;
     }
 
     // ************************************ PRIVATE FUNCTIONS ************************************
@@ -74,6 +84,11 @@ public class NumberAnimator : MonoBehaviour
                 break;
             case AnimationState.VICTORY:
                 _currentAnimationCoroutine = StartCoroutine(CO_PlayVictoryAnimation());
+                break;
+            case AnimationState.EXIT:
+                _currentAnimationCoroutine = StartCoroutine(CO_PlayExitAnimation());
+                break;
+            default:
                 break;
         }
     }
@@ -104,11 +119,8 @@ public class NumberAnimator : MonoBehaviour
         _animator.Play(animation);
     }
 
-    private void ResetAnimator()
+    private void ResetState()
     {
-        if (_animator.runtimeAnimatorController != _positionsController)
-            _animator.runtimeAnimatorController = _positionsController;
-
         _currentState = AnimationState.IDLE;
         _currentAnimationCoroutine = StartCoroutine(CO_PlayIdleAnimation());
     }
@@ -149,12 +161,20 @@ public class NumberAnimator : MonoBehaviour
         ChangeState(AnimationState.IDLE);
     }
 
-    private void PlayExitAnimation()
+    private IEnumerator CO_PlayExitAnimation()
     {
-        //switch animator
-        //switch state
-        //trebalo bi raditi s ItemObjectMover :-/
+        int tripIndex = UnityEngine.Random.Range(0, 51);
+        if (tripIndex % 2 != 0)
+            _animator.SetBool("shouldTrip", true);
+        else
+            _animator.SetBool("shouldTrip", false);
+
+        GetRandomAnimation(10);
+        _animator.Play(_exitAnimation);
+
+        yield return null;
     }
+
 }
 
 public enum AnimationState

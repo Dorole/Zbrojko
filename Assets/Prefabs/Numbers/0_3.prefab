@@ -1560,6 +1560,7 @@ GameObject:
   - component: {fileID: 8367283480794450737}
   - component: {fileID: 6974182477317393912}
   - component: {fileID: -6143272580986561787}
+  - component: {fileID: 7699740526231026718}
   m_Layer: 0
   m_Name: 0_3
   m_TagString: Untagged
@@ -1597,7 +1598,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 68c9043378a285f4e93d1883af5dab33, type: 3}
   m_Controller: {fileID: 9100000, guid: 538ebc2aa5919c84e89e2bb9c5923555, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -1693,11 +1694,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4448905397d34a641a46139fb7a3ee3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dropTime: 1
-  _moveTime: 2
+  _dropTime: 0.6
+  _moveTime: 3
   _minY: 3
   _maxY: 4
   _xMoveDiff: 5
+--- !u!114 &7699740526231026718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783281794661152889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68939b7043c63584f96a37dab25254d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _numberAnimatorController: {fileID: 9100000, guid: a574e58b0938f284a90663f35baea621,
+    type: 2}
+  _idleAnimation: idle
+  _dragAnimation: tension
+  _victoryAnimation: victory
+  _exitAnimation: exit
+  _celebrationPeriod: 3
 --- !u!1 &1783281794661152891
 GameObject:
   m_ObjectHideFlags: 0
