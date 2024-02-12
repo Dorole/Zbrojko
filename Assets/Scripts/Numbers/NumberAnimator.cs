@@ -163,11 +163,8 @@ public class NumberAnimator : MonoBehaviour
 
     private IEnumerator CO_PlayExitAnimation()
     {
-        int tripIndex = UnityEngine.Random.Range(0, 51);
-        if (tripIndex % 2 != 0)
-            _animator.SetBool("shouldTrip", true);
-        else
-            _animator.SetBool("shouldTrip", false);
+        // Randomly sets the shouldTrip to true or false
+        _animator.SetBool("shouldTrip", Random.Range(0, 2) == 1);
 
         GetRandomAnimation(10);
         _animator.Play(_exitAnimation);
