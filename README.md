@@ -9,9 +9,9 @@ I got the idea from browsing a certain online shopping site where I stumbled upo
 
 I found the concept interesting and educational, but the toy itself was small, plastic and cheap-looking. So I decided to digitise it :) <br>
 
-### Current state [30-12-2023; prototype phase]
-[Click to see the demo.](https://github.com/Dorole/Zbrojko/assets/35565194/fb415654-b1ba-4f91-bc33-133549f6c020)
-<br>*All visuals are placeholders. NEXT: implement removing objects from the scale.*
+### Current state [06-11-2024; prototype phase]
+[Click to see the demo.](https://1drv.ms/v/s!AiJtXPPGXKuzz0CamUTbFJ2vNjA1?e=CSJZOk)
+<br>*Most visuals are placeholders.*
 
 ### Design
 There will be a cute animal(ish) 3D character - Zbrojko - in the centre of the screen who will hold the scales. The character will have simple animations. <br>
@@ -40,3 +40,7 @@ The scales will tip in favour of the larger number until they balance out.
 
 ### Release
 No release date as of yet.
+
+## Dev-log
+### 06-11-2024
+
