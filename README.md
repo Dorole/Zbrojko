@@ -9,8 +9,8 @@ I got the idea from browsing a certain online shopping site where I stumbled upo
 
 I found the concept interesting and educational, but the toy itself was small, plastic and cheap-looking. So I decided to digitise it :) <br>
 
-### Current state [06-11-2024; prototype phase]
-[Click to see the demo.](https://1drv.ms/v/s!AiJtXPPGXKuzz0CamUTbFJ2vNjA1?e=CSJZOk)
+### Current state [15-12-2024; prototype phase]
+[Click to see the demo.](https://1drv.ms/v/c/b3ab5cc6f35c6d22/ESJtXPPGXKsggLPGKAAAAAABijdFdzFPhNhQRM5IsaTwkA?e=zsidbK)
 <br>*Most visuals are placeholders.*
 
 ### Design
@@ -27,7 +27,6 @@ The numbers, when dragged into the container, spawn a happy-looking 3D number wh
 
 ![Snimka zaslona 2024-01-27 175240](https://github.com/Dorole/Zbrojko/assets/35565194/59cf28b9-f70a-4b6d-ae0e-b6c1477afc21)
 <br>*24-01-2024: Can't believe I found an asset which is exactly what I had in mind, to the T :D*
-
 
 Zbrojkići, when dragged into the container, do the same. 
 
